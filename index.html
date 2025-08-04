@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Chat</title>
+		<link rel="stylesheet" href="css/reset.css" />
+		<link rel="stylesheet" href="css/style.css" />
+	</head>
+	<body>
+		<div class="window__app">
+			<div class="top__buttons">
+				<button class="settings-btn btn" id="settingsButton">Настройки</button>
+				<button class="exit-btn btn" id="exitButton">Выйти</button>
+			</div>
+			<div class="window__chat">
+                <div class="my__massages delivered">
+                    <div class="massage__main">
+						<span class="name">Я:</span>
+						<span class="massage"> Добрый день!</span>
+					</div>
+					<span class="time__massage">18:45</span>
+                </div>
+
+				<div class="opponent__massage">
+					<div class="massage__main">
+						<span class="name" id="userName">Миша О:</span>
+						<span class="massage" id="massageText"> Добрый день!</span>
+					</div>
+					<span class="time__massage" id="massageTime">18:45</span>
+				</div>
+
+                <div class="my__massages send">
+                    <div class="massage__main">
+						<span class="name">Я:</span>
+						<span class="massage"> Добрый день!</span>
+					</div>
+					<span class="time__massage">18:45</span>
+                </div>
+			</div>
+			<div class="form__massage">
+				<input
+					class="input__massage"
+					type="text"
+					placeholder="Введите сообщение..."
+				/>
+				<button class="send-btn btn" id="sendMassageButton" type="submit">-></button>
+			</div>
+		</div>
+	</body>
+	<script src="js/main.mjs" type="module"></script>
+</html>

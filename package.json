@@ -1,0 +1,35 @@
+{
+  "name": "chat",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/Frontend-Freak/chat#readme",
+  "bugs": {
+    "url": "https://github.com/Frontend-Freak/chat/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Frontend-Freak/chat.git"
+  },
+  "license": "ISC",
+  "author": "FrontendFreak",
+  "type": "module",
+  "main": "main.mjs",
+  "scripts": {
+    "dev": "vite",
+    "lint": "eslint . --ext .ts,.tsx",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "vite": "^7.0.6"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.32.0",
+    "@typescript-eslint/eslint-plugin": "^8.38.0",
+    "@typescript-eslint/parser": "^8.38.0",
+    "eslint": "^9.32.0",
+    "globals": "^16.3.0",
+    "jiti": "^2.5.1",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.38.0"
+  }
+}
