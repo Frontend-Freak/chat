@@ -1,9 +1,24 @@
-import js from "@eslint/js";
-import globals from "globals";
-import tseslint from "typescript-eslint";
-import { defineConfig } from "eslint/config";
+import eslintPluginTs from "@typescript-eslint/eslint-plugin";
+import parser from "@typescript-eslint/parser";
+import { Linter } from "eslint";
 
-export default defineConfig([
-  { files: ["**/*.{js,mjs,cjs,ts,mts,cts}"], plugins: { js }, extends: ["js/recommended"], languageOptions: { globals: globals.browser } },
-  tseslint.configs.recommended,
-]);
+const config: Linter.FlatConfig[] = [
+  {
+    files: ["**/*.ts", "**/*.tsx"],
+    languageOptions: {
+      parser: parser as any,
+      parserOptions: {
+        project: "./tsconfig.json",
+        sourceType: "module",
+      },
+    },
+    plugins: {
+      "@typescript-eslint": eslintPluginTs as any,
+    },
+    rules: {
+      ...eslintPluginTs.configs.recommended.rules,
+    },
+  },
+];
+
+export default config;
