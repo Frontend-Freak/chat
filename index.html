@@ -10,49 +10,73 @@
 	<body>
 		<div class="window__app">
 			<div class="top__buttons">
-				<button class="settings-btn btn" id="settingsButton">Настройки</button>
+				<button class="settings-btn btn" id="settingsButton">
+					Настройки
+				</button>
 				<button class="exit-btn btn" id="exitButton">Выйти</button>
 			</div>
-			<div class="window__chat">
-                <div class="my__massages delivered">
-                    <div class="massage__main">
-						<span class="name">Я:</span>
-						<span class="massage"> Добрый день!</span>
+			<div class="window__chat" id="chatWindow">
+				<template id="messageTemplate">
+					<div class="messages my__messages" id="messages">
+						<div class="massage__main">
+							<span class="user__name" id="userName"></span>
+							<span class="massage" id="massage"></span>
+						</div>
+						<span class="time__massage" id="timeMassage"></span>
 					</div>
-					<span class="time__massage">18:45</span>
-                </div>
-
-				<div class="opponent__massage" id="opponentMassage">
-					<div class="massage__main">
-						<span class="name" id="userName">Миша О:</span>
-						<span class="massage" id="massageText"> Добрый день!</span>
-					</div>
-					<span class="time__massage" id="massageTime">18:45</span>
-				</div>
-
-                <div class="my__massages" id="myMassage">
-                    <div class="massage__main">
-						<span class="name">Я:</span>
-						<span class="massage"> Добрый день!</span>
-					</div>
-					<span class="time__massage">18:45</span>
-                </div>
-
-                <div class="opponent__massage" id="opponentMassage">
-					<div class="massage__main">
-						<span class="name" id="userName">Кто-то еще:</span>
-						<span class="massage" id="massageText"> Добрый день!</span>
-					</div>
-					<span class="time__massage" id="massageTime">18:45</span>
-				</div>
+				</template>
 			</div>
-			<div class="form__massage">
+			<form class="form__massage" id="formMassage">
 				<input
 					class="input__massage"
+					id="inputMassage"
 					type="text"
 					placeholder="Введите сообщение..."
 				/>
-				<button class="send-btn btn" id="sendMassageButton" type="submit">-></button>
+				<button
+					class="send-btn btn"
+					id="sendMassageButton"
+					type="submit"
+				>
+					->
+				</button>
+			</form>
+
+			<div class="authorization" id="authorization">
+				<div class="authorization__window">
+					<span class="close-btn">&times;</span>
+					<h2 class="authorization__window-title">Авторизация</h2>
+					<label for="email">Почта:</label>
+					<input type="email" id="email" />
+					<div class="btn-group">
+						<button class="get__code btn" id="getCodeBtn">Получить код</button>
+						<button class="enter__code btn" id="enterCodeBtn">Ввести код</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="confirmation" id="confirmation">
+				<div class="confirmation__window">
+					<span class="close-btn">&times;</span>
+					<h2 class="confirmation__window-title">Подтверждение</h2>
+					<label for="confirmCode">Код:</label>
+					<div class="confirmation__input">
+						<input type="text" id="confirmCode" />
+						<button class="send__code btn" id="confirmCodeBtn">Войти</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="settings" id="settings">
+				<div class="settings__window">
+					<span class="close-btn" id="closeSettingsBtn">&times;</span>
+					<h2 class="settings__window-title">Настройки</h2>
+					<label for="newUserName">Имя в чате:</label>
+					<div class="settings__input-name">
+						<input type="text" id="inputNewUserName" />
+						<button class="apply btn" id="applyNewUserNameBtn">-></button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</body>

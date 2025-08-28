@@ -21,10 +21,12 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "js-cookie": "^3.0.5",
     "vite": "^7.0.6"
   },
   "devDependencies": {
     "@eslint/js": "^9.32.0",
+    "@types/js-cookie": "^3.0.6",
     "@typescript-eslint/eslint-plugin": "^8.38.0",
     "@typescript-eslint/parser": "^8.38.0",
     "eslint": "^9.32.0",

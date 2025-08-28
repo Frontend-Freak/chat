@@ -1,25 +1,30 @@
 body {
+	height: 1vh;
+	height: 100%;
+	overflow: hidden;
+	background: #2b3c5d;
+	display: flex;
 }
 
 .btn {
-	border-radius: 0;
-	border: 1px solid black;
+	background-color: white;
+	border-radius: 10px;
+	border: 0.5px solid black;
 	padding: 6px 8px;
 	transition: 0.3s all;
 }
 
 .btn:hover {
 	background: #cccbcb;
-	border-radius: 3px;
 }
 
 .window__app {
-	max-width: 320px;
-	width: 100%;
-	max-height: 537px;
-	height: 100%;
+	position: relative;
+	border-radius: 10px;
+	width: 370px;
+	height: 593px;
 	margin: 10vh auto;
-	border: 1px solid black;
+	background: white;
 }
 
 .top__buttons {
@@ -30,8 +35,9 @@ body {
 }
 
 .window__chat {
-	width: 288px;
-	height: 421px;
+	border-radius: 10px;
+	width: 335px;
+	height: 477px;
 	margin: 8px auto;
 	border: 1px solid black;
 	padding: 8px;
@@ -46,10 +52,11 @@ body {
 	margin: 0 8px;
 	display: flex;
 	width: 95%;
-	gap: 8px;
+	gap: 5px;
 }
 
 .input__massage {
+	border-radius: 10px;
 	border: 1px solid black;
 	max-height: 32px;
 	max-width: 100%;
@@ -57,24 +64,36 @@ body {
 	flex: 1;
 }
 
+.input__massage::placeholder {
+	font-weight: 300;
+	opacity: 0.5;
+}
+
+.placeholder-red::placeholder {
+	color: red;
+}
+
 .send-btn {
 	padding: 8px 12px;
 }
 
-.my__massages {
+.my__messages {
 	align-self: flex-end;
-	background-color: #F6F6F6;
+	background-color: #f6f6f6;
 	text-align: right;
+	border-radius: 10px 10px 0 10px;
+	border: 0.5px solid rgb(147, 147, 147);
 }
 
-.opponent__massage {
+.opponent__messages {
 	align-self: flex-start;
 	background-color: #e5e5e5;
 	text-align: left;
+	border-radius: 10px 10px 10px 0;
 }
 
-.my__massages,
-.opponent__massage {
+.my__messages,
+.opponent__messages {
 	min-width: 139px;
 	max-width: 272px;
 	min-height: 40px;
@@ -84,7 +103,7 @@ body {
 	flex-direction: column;
 	align-items: flex-end;
 	overflow-wrap: anywhere;
-    flex-shrink: 0;
+	flex-shrink: 0;
 }
 
 .massage__main {
@@ -95,21 +114,142 @@ body {
 	min-height: 30px;
 }
 
-.name {
-	font-weight: bold;
+.user__name {
+	font-weight: 600;
 	white-space: nowrap;
 	display: inline;
 }
 
-.massage {
+.message {
 	display: inline;
 	word-break: break-word;
 }
 
 .time__massage {
+	font-size: 12px;
 	color: #3636369f;
 }
 
-.delivered{
-    background: #E5E5E5;
+.delivered {
+	background: #e5e5e5;
+}
+
+.authorization,
+.confirmation,
+.settings{
+	position: absolute;
+	top: -83px;
+	left: 0px;
+	z-index: 1;
+	border-radius: 10px;
+	width: 370px;
+	height: 593px;
+	margin: 10vh auto;
+	background-color: #535353;
+	visibility: hidden;
+}
+
+.authorization__window,
+.confirmation__window,
+.settings__window {
+	position: relative;
+	background-color: white;
+	width: 223px;
+	height: 319px;
+	border-radius: 10px;
+	margin: 30% auto;
+	padding: 21px 14px;
+	color: #000000;
+	animation: fadeIn 0.3s ease;
+}
+
+.close-btn {
+	position: absolute;
+	right: 15px;
+	top: 15px;
+	font-size: 22px;
+	color: #000000;
+	cursor: pointer;
+	transition: color 0.2s ease;
+}
+
+.close-btn:hover {
+	color: #5e5e5e;
+}
+
+.authorization__window-title,
+.confirmation__window-title,
+.settings__window-title {
+	margin-bottom: 20px;
+	font-size: 16px;
+	text-align: start;
+	font-weight: 400;
+}
+
+.authorization__window label,
+.confirmation__window label,
+.settings__window label{
+	display: block;
+	margin-top: 70px;
+	font-size: 14px;
+	margin-bottom: 3px;
+	color: #000000;
+}
+
+.authorization__window input[type="email"],
+.confirmation__window input[type="text"],
+.settings__window input[type="text"]{
+	width: 88%;
+	padding: 10px 12px;
+	border-radius: 10px;
+	border: 0.5px solid #787878;
+	background: #ffffff;
+	color: #000000;
+	outline: none;
+	font-size: 14px;
+	transition: border 0.2s ease;
+}
+
+.settings__window input[type="text"]{
+	width: 71%;
+}
+
+.authorization__window input[type="email"]:focus,
+.confirmation__window input[type="text"]:focus,
+.settings__window input[type="text"]:focus {
+	border-color: #000000;
+}
+
+.btn-group {
+	display: flex;
+	gap: 14px;
+	margin-top: 7px;
+}
+
+.get__code,
+.enter__code{
+	padding: 7px;
+	font-size: 15px;
+	font-weight: 400;
+}
+
+.active{
+	visibility: visible;
+}
+
+.confirmation__input,
+.settings__input-name{
+	display: flex;
+	gap: 7px;
+}
+
+@keyframes popup-appear {
+	0% {
+		transform: translate(-50%, -50%) scale(0.8);
+		opacity: 0;
+	}
+	100% {
+		transform: translate(-50%, -50%) scale(1);
+		opacity: 1;
+	}
 }
