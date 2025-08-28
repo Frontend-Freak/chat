@@ -3,7 +3,7 @@ import { formMassage, inputMassage, defaultInput, renderMessageHistory, createMa
 import { settingsButton, openSettings, currentUserName } from "./settings.js";
 import { authorizationWindow, getCodeBtn } from "./authorization.js";
 import { confirmCodeBtn, saveCodeToCookie } from "./confirmation.js";
-import { getCodeFetch, getDataUser, getNameUser } from "./api.js";
+import { getCodeFetch, getDataUser} from "./api.js";
 const exitBtn: HTMLElement | null = document.querySelector("#exitButton");
 getDataUser();
 
@@ -15,7 +15,6 @@ socket.onopen = () => {
 
 socket.addEventListener('message', async (event) => {
 	const message = JSON.parse(event.data)
-	if (message.userName === currentUserName && message.text === inputMassage?.value) return;
 	console.log(currentUserName)
 	console.log(message)
 	createMassage(message)

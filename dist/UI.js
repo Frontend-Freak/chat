@@ -35,46 +35,6 @@ export function createMassage(message) {
         inputMassage.classList.remove("placeholder-red");
     }
 }
-/* export function createMassage(message: { userName: string; text: string }) {
-    const template: HTMLTemplateElement | null = document.querySelector("#messageTemplate");
-    if (!template) {
-        return;
-    }
-    const templateContent = template.content.cloneNode(true) as DocumentFragment;
-    const name = templateContent.querySelector(".user__name");
-    if (name) {
-        name.textContent = `${message.userName}: `;
-    }
-    const messageElement = templateContent.querySelector("#massage");
-    if (!messageElement) {
-        return;
-    }
-    messageElement.textContent = message.text;
-    if (!inputMassage) {
-        return;
-    }
-    if (inputMassage.value.trim() === "") {
-        inputMassage.classList.add("placeholder-red");
-        inputMassage.style.borderColor = "red";
-        return;
-    } else if (inputMassage && message.userName === currentUserName) {
-        inputMassage.placeholder = "Введите сообщение...";
-        inputMassage.classList.remove("placeholder-red");
-        messageElement.textContent = inputMassage.value;
-    }
-    const time: HTMLElement | null = templateContent.querySelector("#timeMassage");
-    if (!time) {
-        return;
-    }
-    const dateNow = new Date().toTimeString().slice(0, 5);
-    time.textContent = dateNow;
-
-    if (!chatWindow) {
-        return;
-    }
-    chatWindow.append(templateContent);
-    inputMassage.value = "";
-} */
 export function defaultInput() {
     if (inputMassage) {
         inputMassage.value = "";

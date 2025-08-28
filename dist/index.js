@@ -12,8 +12,6 @@ socket.onopen = () => {
 };
 socket.addEventListener('message', async (event) => {
     const message = JSON.parse(event.data);
-    if (message.userName === currentUserName && message.text === inputMassage?.value)
-        return;
     console.log(currentUserName);
     console.log(message);
     createMassage(message);
