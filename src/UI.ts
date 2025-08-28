@@ -11,6 +11,35 @@ getDataUser();
 
 export function createMassage(message: { userName: string; text: string }) {
 	const template: HTMLTemplateElement | null = document.querySelector("#messageTemplate");
+	if (!template) return;
+
+	const templateContent = template.content.cloneNode(true) as DocumentFragment;
+
+	const nameEl = templateContent.querySelector(".user__name");
+	if (nameEl) nameEl.textContent = `${message.userName}: `;
+
+	const messageEl = templateContent.querySelector("#massage");
+	if (!messageEl) return;
+
+	messageEl.textContent = message.text;
+
+	const timeEl: HTMLElement | null = templateContent.querySelector("#timeMassage");
+	if (timeEl) timeEl.textContent = new Date().toTimeString().slice(0, 5);
+
+	if (!chatWindow) return;
+	chatWindow.append(templateContent);
+
+	chatWindow.scrollTo({ top: chatWindow.scrollHeight, behavior: "smooth" });
+
+	if (inputMassage && message.userName === currentUserName) {
+		inputMassage.value = "";
+		inputMassage.placeholder = "Введите сообщение...";
+		inputMassage.classList.remove("placeholder-red");
+	}
+}
+
+/* export function createMassage(message: { userName: string; text: string }) {
+	const template: HTMLTemplateElement | null = document.querySelector("#messageTemplate");
 	if (!template) {
 		return;
 	}
@@ -48,7 +77,7 @@ export function createMassage(message: { userName: string; text: string }) {
 	}
 	chatWindow.append(templateContent);
 	inputMassage.value = "";
-}
+} */
 
 export function defaultInput() {
 	if (inputMassage) {

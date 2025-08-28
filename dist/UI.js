@@ -9,10 +9,35 @@ export const chatWindow = document.querySelector("#chatWindow");
 getDataUser();
 export function createMassage(message) {
     const template = document.querySelector("#messageTemplate");
+    if (!template)
+        return;
+    const templateContent = template.content.cloneNode(true);
+    const nameEl = templateContent.querySelector(".user__name");
+    if (nameEl)
+        nameEl.textContent = `${message.userName}: `;
+    const messageEl = templateContent.querySelector("#massage");
+    if (!messageEl)
+        return;
+    messageEl.textContent = message.text;
+    const timeEl = templateContent.querySelector("#timeMassage");
+    if (timeEl)
+        timeEl.textContent = new Date().toTimeString().slice(0, 5);
+    if (!chatWindow)
+        return;
+    chatWindow.append(templateContent);
+    chatWindow.scrollTo({ top: chatWindow.scrollHeight, behavior: "smooth" });
+    if (inputMassage && message.userName === currentUserName) {
+        inputMassage.value = "";
+        inputMassage.placeholder = "Введите сообщение...";
+        inputMassage.classList.remove("placeholder-red");
+    }
+}
+/* export function createMassage(message: { userName: string; text: string }) {
+    const template: HTMLTemplateElement | null = document.querySelector("#messageTemplate");
     if (!template) {
         return;
     }
-    const templateContent = template.content.cloneNode(true);
+    const templateContent = template.content.cloneNode(true) as DocumentFragment;
     const name = templateContent.querySelector(".user__name");
     if (name) {
         name.textContent = `${message.userName}: `;
@@ -29,24 +54,24 @@ export function createMassage(message) {
         inputMassage.classList.add("placeholder-red");
         inputMassage.style.borderColor = "red";
         return;
-    }
-    else if (inputMassage && message.userName === currentUserName) {
+    } else if (inputMassage && message.userName === currentUserName) {
         inputMassage.placeholder = "Введите сообщение...";
         inputMassage.classList.remove("placeholder-red");
         messageElement.textContent = inputMassage.value;
     }
-    const time = templateContent.querySelector("#timeMassage");
+    const time: HTMLElement | null = templateContent.querySelector("#timeMassage");
     if (!time) {
         return;
     }
     const dateNow = new Date().toTimeString().slice(0, 5);
     time.textContent = dateNow;
+
     if (!chatWindow) {
         return;
     }
     chatWindow.append(templateContent);
     inputMassage.value = "";
-}
+} */
 export function defaultInput() {
     if (inputMassage) {
         inputMassage.value = "";
