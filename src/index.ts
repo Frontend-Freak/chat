@@ -1,5 +1,5 @@
 import { sendMassage } from "./sendMessage.js";
-import { formMassage, inputMassage, defaultInput, renderMessageHistory } from "./UI.js";
+import { formMassage, inputMassage, defaultInput, renderMessageHistory, createMassage } from "./UI.js";
 import { settingsButton, openSettings } from "./settings.js";
 import { authorizationWindow, getCodeBtn } from "./authorization.js";
 import { confirmCodeBtn, saveCodeToCookie } from "./confirmation.js";
@@ -12,6 +12,11 @@ export const socket = new WebSocket(`wss://edu.strada.one/websockets?${localStor
 socket.onopen = () => {
 	console.log("Соединение установлено");
 };
+
+socket.addEventListener('message', (event) => {
+	const msg = JSON.parse(event.data)
+	createMassage(msg)
+})
 
 if (formMassage) {
 	formMassage.addEventListener("submit", sendMassage);
