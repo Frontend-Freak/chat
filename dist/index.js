@@ -10,9 +10,9 @@ export const socket = new WebSocket(`wss://edu.strada.one/websockets?${localStor
 socket.onopen = () => {
     console.log("Соединение установлено");
 };
-socket.addEventListener('message', (event) => {
+socket.addEventListener('message', async (event) => {
     const message = JSON.parse(event.data);
-    getNameUser();
+    await getNameUser();
     console.log(message);
     createMassage(message);
 });
