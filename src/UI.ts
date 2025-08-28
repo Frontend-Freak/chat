@@ -2,6 +2,7 @@ import { authorizationWindow } from "./authorization.js";
 import { currentEmail } from "./api.js";
 import { serverUrl } from "./api.js";
 import { getDataUser } from "./api.js";
+import { currentUserName } from "./settings.js";
 export const formMassage: HTMLFormElement | null = document.querySelector("#formMassage");
 export const inputMassage: HTMLInputElement | null = document.querySelector("#inputMassage");
 export const chatWindow: HTMLElement | null = document.querySelector("#chatWindow");
@@ -30,7 +31,7 @@ export function createMassage(message: { userName: string; text: string }) {
 		inputMassage.classList.add("placeholder-red");
 		inputMassage.style.borderColor = "red";
 		return;
-	} else if (inputMassage) {
+	} else if (inputMassage && message.userName === currentUserName) {
 		inputMassage.placeholder = "Введите сообщение...";
 		inputMassage.classList.remove("placeholder-red");
 		messageElement.textContent = inputMassage.value;

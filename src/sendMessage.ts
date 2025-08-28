@@ -4,7 +4,7 @@ import { getNameUser } from "./api.js";
 import { socket } from "./index.js";
 import { inputMassage } from "./UI.js";
 
-export async function sendMassage(event: Event) {
+/* export async function sendMassage(event: Event) {
 	event.preventDefault();
 	await getNameUser();
 	if (inputMassage && inputMassage.value) {
@@ -15,4 +15,25 @@ export async function sendMassage(event: Event) {
 		socket.send(JSON.stringify(message));
 		createMassage(message);
 	}
+} */
+
+export async function sendMassage(event: Event) {
+	event.preventDefault();
+	await getNameUser();
+
+	if (!inputMassage || inputMassage.value.trim() === "") {
+		if (inputMassage) {
+			inputMassage.classList.add("placeholder-red");
+			inputMassage.style.borderColor = "red";
+		}
+		return;
+	}
+
+	const message = {
+		userName: currentUserName,
+		text: inputMassage.value,
+	};
+
+	socket.send(JSON.stringify(message));
+	createMassage(message);
 }
