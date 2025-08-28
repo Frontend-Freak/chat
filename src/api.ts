@@ -113,13 +113,13 @@ export async function getDataUser() {
 }
 
 export async function getNameUser() {
-	const token: string | null = localStorage.getItem("code");
-	if (!token) {
-		if (authorizationWindow) {
-			authorizationWindow.classList.add("active");
-		}
-	}
 	try {
+		const token: string | null = localStorage.getItem("code");
+		if (!token) {
+			if (authorizationWindow) {
+				authorizationWindow.classList.add("active");
+			}
+		}
 		const response = await fetch(`${serverUrl}/user/me`, {
 			method: "GET",
 			headers: {

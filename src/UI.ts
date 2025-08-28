@@ -9,7 +9,7 @@ export const chatWindow: HTMLElement | null = document.querySelector("#chatWindo
 
 getDataUser();
 
-export function createMassage(message: { userName: string; text: string }) {
+export function createMassage(message: { user: {name : string}; text: string }) {
 	const template: HTMLTemplateElement | null = document.querySelector("#messageTemplate");
 	if (!template) {
 		return;
@@ -17,7 +17,7 @@ export function createMassage(message: { userName: string; text: string }) {
 	const templateContent = template.content.cloneNode(true) as DocumentFragment;
 	const nameElement = templateContent.querySelector(".user__name");
 	if (nameElement) {
-		nameElement.textContent = `${message.userName}: `;
+		nameElement.textContent = `${message.user.name}: `;
 	}
 
 	const messageElement = templateContent.querySelector("#massage");
@@ -34,7 +34,7 @@ export function createMassage(message: { userName: string; text: string }) {
 	chatWindow.append(templateContent);
 
 
-	if (inputMassage && message.userName === currentUserName) {
+	if (inputMassage && message.user.name === currentUserName) {
 		inputMassage.value = "";
 		inputMassage.placeholder = "Введите сообщение...";
 		inputMassage.classList.remove("placeholder-red");
@@ -74,6 +74,7 @@ export async function renderMessageHistory() {
 			};
 		}
 		const result = await response.json();
+        console.log(result)
 		if (!token || result.token) {
 			if (authorizationWindow) {
 				authorizationWindow.classList.add("active");

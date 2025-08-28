@@ -15,7 +15,7 @@ export function createMassage(message) {
     const templateContent = template.content.cloneNode(true);
     const nameElement = templateContent.querySelector(".user__name");
     if (nameElement) {
-        nameElement.textContent = `${message.userName}: `;
+        nameElement.textContent = `${message.user.name}: `;
     }
     const messageElement = templateContent.querySelector("#massage");
     if (!messageElement) {
@@ -29,7 +29,7 @@ export function createMassage(message) {
     if (!chatWindow)
         return;
     chatWindow.append(templateContent);
-    if (inputMassage && message.userName === currentUserName) {
+    if (inputMassage && message.user.name === currentUserName) {
         inputMassage.value = "";
         inputMassage.placeholder = "Введите сообщение...";
         inputMassage.classList.remove("placeholder-red");
@@ -58,6 +58,7 @@ export async function renderMessageHistory() {
             }
         }
         const result = await response.json();
+        console.log(result);
         if (!token || result.token) {
             if (authorizationWindow) {
                 authorizationWindow.classList.add("active");
