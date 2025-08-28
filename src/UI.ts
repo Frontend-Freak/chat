@@ -20,20 +20,19 @@ export function createMassage(message: { userName: string; text: string }) {
 		nameElement.textContent = `${message.userName}: `;
 	}
 
-	const messageEl = templateContent.querySelector("#massage");
-	if (!messageEl) {
+	const messageElement = templateContent.querySelector("#massage");
+	if (!messageElement) {
 		return;
 	}
-	messageEl.textContent = message.text;
-	const timeEl: HTMLElement | null = templateContent.querySelector("#timeMassage");
-	if (timeEl) {
-		timeEl.textContent = new Date().toTimeString().slice(0, 5);
+	messageElement.textContent = message.text;
+	const timeElement: HTMLElement | null = templateContent.querySelector("#timeMassage");
+	if (timeElement) {
+		timeElement.textContent = new Date().toTimeString().slice(0, 5);
 	}
 
 	if (!chatWindow) return;
 	chatWindow.append(templateContent);
 
-	chatWindow.scrollTo({ top: chatWindow.scrollHeight, behavior: "smooth" });
 
 	if (inputMassage && message.userName === currentUserName) {
 		inputMassage.value = "";

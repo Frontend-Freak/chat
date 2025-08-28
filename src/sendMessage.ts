@@ -33,7 +33,6 @@ export async function sendMassage(event: Event) {
 		userName: currentUserName,
 		text: inputMassage.value,
 	};
-
+    createMassage(message);
 	socket.send(JSON.stringify(message));
-	createMassage(message);
 }

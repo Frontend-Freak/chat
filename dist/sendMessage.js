@@ -29,6 +29,6 @@ export async function sendMassage(event) {
         userName: currentUserName,
         text: inputMassage.value,
     };
-    socket.send(JSON.stringify(message));
     createMassage(message);
+    socket.send(JSON.stringify(message));
 }
