@@ -1,4 +1,3 @@
-import { createMassage } from "./UI.js";
 import { currentUserName } from "./settings.js";
 import { getNameUser } from "./api.js";
 import { socket } from "./index.js";
@@ -33,6 +32,5 @@ export async function sendMassage(event: Event) {
 		userName: currentUserName,
 		text: inputMassage.value,
 	};
-    createMassage(message);
 	socket.send(JSON.stringify(message));
 }

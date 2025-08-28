@@ -3,7 +3,7 @@ import { formMassage, inputMassage, defaultInput, renderMessageHistory, createMa
 import { settingsButton, openSettings, currentUserName } from "./settings.js";
 import { authorizationWindow, getCodeBtn } from "./authorization.js";
 import { confirmCodeBtn, saveCodeToCookie } from "./confirmation.js";
-import { getCodeFetch, getDataUser, getNameUser } from "./api.js";
+import { getCodeFetch, getDataUser } from "./api.js";
 const exitBtn = document.querySelector("#exitButton");
 getDataUser();
 export const socket = new WebSocket(`wss://edu.strada.one/websockets?${localStorage.getItem("code")}`);
@@ -12,7 +12,8 @@ socket.onopen = () => {
 };
 socket.addEventListener('message', async (event) => {
     const message = JSON.parse(event.data);
-    await getNameUser();
+    if (message.userName === currentUserName && message.text === inputMassage?.value)
+        return;
     console.log(currentUserName);
     console.log(message);
     createMassage(message);
