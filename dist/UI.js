@@ -6,7 +6,7 @@ export const formMassage = document.querySelector("#formMassage");
 export const inputMassage = document.querySelector("#inputMassage");
 export const chatWindow = document.querySelector("#chatWindow");
 getDataUser();
-export function createMassage(userName) {
+export function createMassage(message) {
     const template = document.querySelector("#messageTemplate");
     if (!template) {
         return;
@@ -14,12 +14,13 @@ export function createMassage(userName) {
     const templateContent = template.content.cloneNode(true);
     const name = templateContent.querySelector(".user__name");
     if (name) {
-        name.textContent = `${userName}: `;
+        name.textContent = `${message.userName}: `;
     }
-    const massage = templateContent.querySelector("#massage");
-    if (!massage) {
+    const messageElement = templateContent.querySelector("#massage");
+    if (!messageElement) {
         return;
     }
+    messageElement.textContent = message.text;
     if (!inputMassage) {
         return;
     }
@@ -31,7 +32,7 @@ export function createMassage(userName) {
     else if (inputMassage) {
         inputMassage.placeholder = "Введите сообщение...";
         inputMassage.classList.remove("placeholder-red");
-        massage.textContent = inputMassage.value;
+        messageElement.textContent = inputMassage.value;
     }
     const time = templateContent.querySelector("#timeMassage");
     if (!time) {

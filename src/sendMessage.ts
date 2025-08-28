@@ -9,10 +9,10 @@ export async function sendMassage(event: Event) {
 	await getNameUser();
 	if (inputMassage && inputMassage.value) {
 		const message = {
-			author: currentUserName,
+			userName: currentUserName,
 			text: inputMassage.value,
 		};
 		socket.send(JSON.stringify(message));
-		createMassage(currentUserName);
+		createMassage(message);
 	}
 }
