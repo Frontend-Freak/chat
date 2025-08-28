@@ -14,8 +14,9 @@ socket.onopen = () => {
 };
 
 socket.addEventListener('message', (event) => {
-	const msg = JSON.parse(event.data)
-	createMassage(msg)
+	const message = JSON.parse(event.data)
+	console.log(message)
+	createMassage(message)
 })
 
 if (formMassage) {
