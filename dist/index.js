@@ -12,8 +12,6 @@ socket.onopen = () => {
 };
 socket.addEventListener('message', async (event) => {
     const message = JSON.parse(event.data);
-    /* console.log(currentUserName)
-    console.log(message) */
     createMassage(message);
 });
 if (formMassage) {
