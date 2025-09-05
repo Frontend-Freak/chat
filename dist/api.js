@@ -23,7 +23,7 @@ export async function getCodeFetch() {
             body: JSON.stringify(emailAddress),
         });
         if (!response.ok) {
-            return ("Письмо не отправлено");
+            return "Письмо не отправлено";
         }
         const result = await response.json();
         alert(`Код отправлен на почту ${result.email}`);
@@ -67,7 +67,7 @@ export async function applyNewUserName() {
         }
         getDataUser();
         if (!response.ok) {
-            return ("Ошибка, имя не изменено");
+            return "Ошибка, имя не изменено";
         }
         alert(`Имя изменено на ${nameValue}`);
         if (settings) {
@@ -93,7 +93,7 @@ export async function getDataUser() {
             if (authorizationWindow) {
                 authorizationWindow.classList.add("active");
             }
-            return ("Введен не верный код");
+            return "Введен не верный код";
         }
         const result = await response.json();
         currentEmail = result.email;
@@ -127,7 +127,7 @@ export async function getNameUser() {
             },
         });
         if (!response.ok) {
-            return ("Ошибка");
+            return "Ошибка";
         }
         const result = await response.json();
         const userName = document.querySelector("#userName");

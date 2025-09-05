@@ -4,6 +4,7 @@ import { settingsButton, openSettings} from "./settings.js";
 import { authorizationWindow, getCodeBtn } from "./authorization.js";
 import { confirmCodeBtn, saveCodeToCookie } from "./confirmation.js";
 import { getCodeFetch, getDataUser} from "./api.js";
+
 const exitBtn: HTMLElement | null = document.querySelector("#exitButton");
 getDataUser();
 
@@ -54,3 +55,4 @@ if (exitBtn) {
 }
 
 renderMessageHistory();
+
