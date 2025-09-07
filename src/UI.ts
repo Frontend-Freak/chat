@@ -1,57 +1,78 @@
 import { authorizationWindow } from "./authorization.js";
-import { currentEmail } from "./api.js";
-import { serverUrl } from "./api.js";
-import { getDataUser } from "./api.js";
+import { currentEmail, serverUrl, getDataUser } from "./api.js";
 import { currentUserName } from "./settings.js";
-export const formMassage: HTMLFormElement | null = document.querySelector("#formMassage");
-export const inputMassage: HTMLInputElement | null = document.querySelector("#inputMassage");
+export const formMessage: HTMLFormElement | null = document.querySelector("#formMassage");
+export const inputMessage: HTMLInputElement | null = document.querySelector("#inputMassage");
 export const chatWindow: HTMLElement | null = document.querySelector("#chatWindow");
 
 getDataUser();
 
-export function createMassage(message: { user: { name: string }; text: string }) {
+interface OpponentMessage {
+	updatedAt: string;
+	text: string;
+	user: {
+		name: string;
+		email: string;
+	};
+}
+
+let allMessages: OpponentMessage[] = [];
+let loadedCount = 0;
+const loadSize = 20;
+
+export function createMessage(message: OpponentMessage, isHistory: boolean = false) {
 	const template: HTMLTemplateElement | null = document.querySelector("#messageTemplate");
-	if (!template) {
+	if (!template || !chatWindow) {
 		return;
 	}
 	const templateContent = template.content.cloneNode(true) as DocumentFragment;
 	const nameElement = templateContent.querySelector(".user__name");
+	const messageElement = templateContent.querySelector("#massage");
+	const timeElement = templateContent.querySelector("#timeMassage");
+	const container = templateContent.querySelector(".messages");
 	if (nameElement) {
 		nameElement.textContent = `${message.user.name}: `;
 	}
-
-	const messageElement = templateContent.querySelector("#massage");
-	if (!messageElement) {
-		return;
+	if (messageElement) {
+		messageElement.textContent = message.text;
 	}
-	messageElement.textContent = message.text;
-	const timeElement: HTMLElement | null = templateContent.querySelector("#timeMassage");
 	if (timeElement) {
 		timeElement.textContent = new Date().toTimeString().slice(0, 5);
 	}
-
-	if (!chatWindow) {
-		return;
+	if (container) {
+		container.classList.add(message.user.email === currentEmail ? "my__messages" : "opponent__messages");
 	}
-	chatWindow.append(templateContent);
+	if (isHistory) {
+		chatWindow.append(templateContent);
+	} else {
+		chatWindow.prepend(templateContent);
+	}
+	if (inputMessage && message.user.name === currentUserName) {
+		inputMessage.value = "";
+		inputMessage.placeholder = "Введите сообщение...";
+		inputMessage.classList.remove("placeholder-red");
+	}
 
-	if (inputMassage && message.user.name === currentUserName) {
-		inputMassage.value = "";
-		inputMassage.placeholder = "Введите сообщение...";
-		inputMassage.classList.remove("placeholder-red");
+	if (!isHistory) {
+		chatWindow.scrollTop = chatWindow.scrollHeight;
 	}
 }
-
 export function defaultInput() {
-	if (inputMassage) {
-		inputMassage.value = "";
-		inputMassage.style.borderColor = "black";
-		inputMassage.classList.remove("placeholder-red");
+	if (inputMessage) {
+		inputMessage.value = "";
+		inputMessage.style.borderColor = "black";
+		inputMessage.classList.remove("placeholder-red");
 	}
 }
 
 export async function renderMessageHistory() {
-	const token: string | null = localStorage.getItem("code");
+	const token = localStorage.getItem("code");
+	if (!token) {
+		if (authorizationWindow) {
+			authorizationWindow.classList.add("active");
+		}
+		return;
+	}
 	try {
 		const response = await fetch(`${serverUrl}/messages/`, {
 			method: "GET",
@@ -64,62 +85,43 @@ export async function renderMessageHistory() {
 			if (authorizationWindow) {
 				authorizationWindow.classList.add("active");
 			}
-		}
-		interface OpponentMessage {
-			updatedAt: string;
-			text: string;
-			user: {
-				name: string;
-				email: string;
-			};
+			return;
 		}
 		const result = await response.json();
-		console.log(result);
-		if (!token || result.token) {
+		if (result.token) {
 			if (authorizationWindow) {
 				authorizationWindow.classList.add("active");
 			}
 			return;
 		}
-		const messageArray: OpponentMessage[] = result.messages;
-
-		messageArray.reverse().forEach((element: OpponentMessage) => {
-			const template: HTMLTemplateElement | null = document.querySelector("#messageTemplate");
-			const opponentEmail = element.user.email;
-			if (!template) {
-				return;
-			}
-			const templateContent = template.content.cloneNode(true) as DocumentFragment;
-			const name = templateContent.querySelector(".user__name");
-			const message = templateContent.querySelector("#massage");
-			const time = templateContent.querySelector("#timeMassage");
-			const massageContainer = templateContent.querySelector(".messages");
-			if (massageContainer) {
-				if (opponentEmail === currentEmail) {
-					massageContainer.classList.add("my__messages");
-				} else {
-					massageContainer.classList.add("opponent__messages");
+		allMessages = result.messages;
+		localStorage.setItem("messageHistoryArray", JSON.stringify(allMessages));
+		loadedCount = 0;
+		renderNextMessages();
+		if (chatWindow) {
+			chatWindow.scrollTop = chatWindow.scrollHeight;
+			console.log(chatWindow.scrollHeight, chatWindow.clientHeight);
+			chatWindow.addEventListener("scroll", function () {
+				const scrollPosition = chatWindow.scrollTop;
+				console.log("scrollTop:", scrollPosition);
+				if (scrollPosition === 0) {
+					console.log("Доскроллили до верхнего сообщения!");
+					renderNextMessages();
 				}
-			}
-
-			const messageDate = element.updatedAt;
-			const date = new Date(messageDate).toTimeString().slice(0, 5);
-			if (name) {
-				name.textContent = `${element.user.name}: `;
-			}
-			if (message) {
-				message.textContent = element.text;
-			}
-			if (time) {
-				time.textContent = date;
-			}
-
-			if (!chatWindow) {
-				return;
-			}
-			chatWindow.append(templateContent);
-		});
+			});
+		}
 	} catch (error) {
 		console.error(error);
+	}
+}
+
+export function renderNextMessages() {
+	if (!chatWindow) return;
+	const nextMessages = allMessages.slice(loadedCount, loadedCount + loadSize);
+	nextMessages.forEach((msg) => createMessage(msg, true));
+	loadedCount += loadSize;
+	if (loadedCount >= allMessages.length) {
+		alert("Все сообщения загружены");
+		console.log("Все сообщения загружены");
 	}
 }

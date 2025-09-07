@@ -1,5 +1,5 @@
 import { sendMassage } from "./sendMessage.js";
-import { formMassage, inputMassage, defaultInput, renderMessageHistory , createMassage } from "./UI.js";
+import { formMessage, inputMessage, defaultInput, renderMessageHistory , createMessage } from "./UI.js";
 import { settingsButton, openSettings} from "./settings.js";
 import { authorizationWindow, getCodeBtn } from "./authorization.js";
 import { confirmCodeBtn, saveCodeToCookie } from "./confirmation.js";
@@ -16,15 +16,16 @@ socket.onopen = () => {
 
 socket.addEventListener('message', async (event) => {
 	const message = JSON.parse(event.data)
-	createMassage(message)
+	console.log(`${message} инфа по сообщениям`)
+	createMessage(message)
 })
 
-if (formMassage) {
-	formMassage.addEventListener("submit", sendMassage);
+if (formMessage) {
+	formMessage.addEventListener("submit", sendMassage);
 }
 
-if (inputMassage) {
-	inputMassage.addEventListener("click", defaultInput);
+if (inputMessage) {
+	inputMessage.addEventListener("click", defaultInput);
 }
 
 if (settingsButton) {

@@ -1,18 +1,19 @@
 import { currentUserName } from "./settings.js";
 import { getNameUser } from "./api.js";
 import { socket } from "./index.js";
-import { inputMassage } from "./UI.js";
+import { inputMessage } from "./UI.js";
 
 
 export async function sendMassage(event: Event) {
 	event.preventDefault();
 	await getNameUser();
-	if (!inputMassage) {
+	if (!inputMessage) {
 		return;
 	}
 	const message = {
 		userName: currentUserName,
-		text: inputMassage.value,
+		text: inputMessage.value,
 	};
+	console.log(message)
 	socket.send(JSON.stringify(message));
 }
