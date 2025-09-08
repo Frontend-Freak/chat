@@ -1,14 +1,15 @@
-import { settings } from "./api.js";
-import { applyNewUserName } from "./api.js";
+import { settings, applyNewUserName } from "./api.js";
 export const settingsButton: HTMLElement | null = document.querySelector("#settingsButton");
 
 const closeButton: HTMLElement | null = document.querySelector("#closeSettingsBtn");
 const applyNewUserNameBtn: HTMLElement | null = document.querySelector("#applyNewUserNameBtn");
 
-export let currentUserName: string = "";
+export let currentUserName: string | null = localStorage.getItem("currentName");
 
 export function setCurrentUserName(name: string) {
+	localStorage.removeItem("currentName");
 	currentUserName = name;
+	localStorage.setItem("currentName", name);
 }
 
 if (applyNewUserNameBtn) {

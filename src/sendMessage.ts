@@ -3,8 +3,7 @@ import { getNameUser } from "./api.js";
 import { socket } from "./index.js";
 import { inputMessage } from "./UI.js";
 
-
-export async function sendMassage(event: Event) {
+export async function sendMessage(event: Event) {
 	event.preventDefault();
 	await getNameUser();
 	if (!inputMessage) {
@@ -14,6 +13,7 @@ export async function sendMassage(event: Event) {
 		userName: currentUserName,
 		text: inputMessage.value,
 	};
-	console.log(message)
 	socket.send(JSON.stringify(message));
+	inputMessage.value = "";
 }
+

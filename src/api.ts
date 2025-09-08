@@ -1,15 +1,16 @@
-import { setCurrentUserName } from "./settings.js";
+import { currentUserName, setCurrentUserName } from "./settings.js";
 import { authorizationWindow } from "./authorization.js";
 export const settings: HTMLElement | null = document.querySelector("#settings");
 export const serverUrl: string = "https://edu.strada.one/api";
 export let currentEmail: string = "";
+const userName: HTMLElement | null = document.querySelector("#userName");
 
 export async function getCodeFetch() {
 	const emailInput: HTMLInputElement | null = document.querySelector("#email");
 	if (!emailInput) {
 		return;
 	}
-	if (emailInput.value === "") {
+	if (emailInput.value.trim() === "") {
 		alert("ВВедите почту!!");
 	}
 	const emailAddress = {
@@ -24,7 +25,12 @@ export async function getCodeFetch() {
 			body: JSON.stringify(emailAddress),
 		});
 		if (!response.ok) {
-			return "Письмо не отправлено";
+			if (authorizationWindow) {
+				authorizationWindow.classList.add("active");
+			}
+			console.error("Письмо не отправлено");
+			alert("Письмо не отправлено");
+			return;
 		}
 		const result = await response.json();
 		alert(`Код отправлен на почту ${result.email}`);
@@ -40,13 +46,9 @@ export async function applyNewUserName() {
 	if (!inputNewUserName) {
 		return;
 	}
-	const nameValue: string = inputNewUserName.value;
+	const nameValue: string = inputNewUserName.value.trim();
 	if (!nameValue) {
-		alert("Нет имени");
-		return;
-	}
-	if (inputNewUserName.value === "") {
-		alert("Введите новое имя");
+		alert("Строка имени не может быть пустой");
 		return;
 	}
 	const newUserName = {
@@ -68,8 +70,11 @@ export async function applyNewUserName() {
 		}
 		getDataUser();
 		if (!response.ok) {
-			return "Ошибка, имя не изменено";
+			console.error("Ошибка, имя не изменено");
+			alert("Ошибка, имя не изменено");
+			return;
 		}
+		location.reload();
 		alert(`Имя изменено на ${nameValue}`);
 		if (settings) {
 			settings.classList.remove("active");
@@ -94,17 +99,17 @@ export async function getDataUser() {
 			if (authorizationWindow) {
 				authorizationWindow.classList.add("active");
 			}
-			return "Введен не верный код";
+			return;
 		}
 		const result = await response.json();
 		currentEmail = result.email;
-		const userName: HTMLElement | null = document.querySelector("#userName");
 		if (result.token !== localStorage.getItem("code")) {
+			alert("Введен не верный код");
 			if (authorizationWindow) {
 				authorizationWindow.classList.add("active");
 			}
 			if (userName) {
-				userName.textContent = result.name;
+				userName.textContent = currentUserName;
 			}
 		}
 	} catch (error) {
@@ -112,9 +117,10 @@ export async function getDataUser() {
 	}
 }
 
+
 export async function getNameUser() {
+	const token: string | null = localStorage.getItem("code");
 	try {
-		const token: string | null = localStorage.getItem("code");
 		if (!token) {
 			if (authorizationWindow) {
 				authorizationWindow.classList.add("active");
@@ -128,15 +134,19 @@ export async function getNameUser() {
 			},
 		});
 		if (!response.ok) {
-			return "Ошибка";
+			console.log("Ошибка получения имени, повторите попытку");
+			return 
 		}
 		const result = await response.json();
-		const userName: HTMLElement | null = document.querySelector("#userName");
+		localStorage.setItem("currentName", result.name);
+
 		if (result.token === localStorage.getItem("code")) {
 			if (result.name) {
-				setCurrentUserName(result.name);
+				if (currentUserName) {
+					setCurrentUserName(currentUserName);
+				}
 				if (userName) {
-					userName.textContent = `${result.name}: `;
+					userName.textContent = `${currentUserName}: `;
 				}
 			}
 		}
@@ -147,4 +157,3 @@ export async function getNameUser() {
 		}
 	}
 }
-

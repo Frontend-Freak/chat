@@ -2,7 +2,7 @@ import { currentUserName } from "./settings.js";
 import { getNameUser } from "./api.js";
 import { socket } from "./index.js";
 import { inputMessage } from "./UI.js";
-export async function sendMassage(event) {
+export async function sendMessage(event) {
     event.preventDefault();
     await getNameUser();
     if (!inputMessage) {
@@ -12,6 +12,6 @@ export async function sendMassage(event) {
         userName: currentUserName,
         text: inputMessage.value,
     };
-    console.log(message);
     socket.send(JSON.stringify(message));
+    inputMessage.value = "";
 }

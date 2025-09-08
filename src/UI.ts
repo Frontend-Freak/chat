@@ -31,7 +31,7 @@ export function createMessage(message: OpponentMessage, isHistory: boolean = fal
 	const timeElement = templateContent.querySelector("#timeMassage");
 	const container = templateContent.querySelector(".messages");
 	if (nameElement) {
-		nameElement.textContent = `${message.user.name}: `;
+		nameElement.textContent = `${currentUserName}: `;
 	}
 	if (messageElement) {
 		messageElement.textContent = message.text;
@@ -57,6 +57,8 @@ export function createMessage(message: OpponentMessage, isHistory: boolean = fal
 		chatWindow.scrollTop = chatWindow.scrollHeight;
 	}
 }
+
+
 export function defaultInput() {
 	if (inputMessage) {
 		inputMessage.value = "";
@@ -64,6 +66,7 @@ export function defaultInput() {
 		inputMessage.classList.remove("placeholder-red");
 	}
 }
+
 
 export async function renderMessageHistory() {
 	const token = localStorage.getItem("code");
@@ -97,15 +100,14 @@ export async function renderMessageHistory() {
 		allMessages = result.messages;
 		localStorage.setItem("messageHistoryArray", JSON.stringify(allMessages));
 		loadedCount = 0;
+
 		renderNextMessages();
+
 		if (chatWindow) {
 			chatWindow.scrollTop = chatWindow.scrollHeight;
-			console.log(chatWindow.scrollHeight, chatWindow.clientHeight);
 			chatWindow.addEventListener("scroll", function () {
 				const scrollPosition = chatWindow.scrollTop;
-				console.log("scrollTop:", scrollPosition);
 				if (scrollPosition === 0) {
-					console.log("Доскроллили до верхнего сообщения!");
 					renderNextMessages();
 				}
 			});
@@ -115,8 +117,11 @@ export async function renderMessageHistory() {
 	}
 }
 
+
 export function renderNextMessages() {
-	if (!chatWindow) return;
+	if (!chatWindow) {
+		return;
+	}
 	const nextMessages = allMessages.slice(loadedCount, loadedCount + loadSize);
 	nextMessages.forEach((msg) => createMessage(msg, true));
 	loadedCount += loadSize;

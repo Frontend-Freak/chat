@@ -1,7 +1,7 @@
 export const getCodeBtn = document.querySelector("#getCodeBtn");
-const enterCodeBtn = document.querySelector("#enterCodeBtn");
 export const confirmationWindow = document.querySelector("#confirmation");
 export const authorizationWindow = document.querySelector("#authorization");
+const enterCodeBtn = document.querySelector("#enterCodeBtn");
 function openConfirmation() {
     if (authorizationWindow) {
         authorizationWindow.classList.remove("active");

@@ -9,6 +9,6 @@ export function saveCodeToCookie() {
     if (confirmationWindow) {
         confirmationWindow.classList.remove("active");
     }
+    location.reload();
     getDataUser();
-    console.log(localStorage.getItem("code"));
 }

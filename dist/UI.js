@@ -19,7 +19,7 @@ export function createMessage(message, isHistory = false) {
     const timeElement = templateContent.querySelector("#timeMassage");
     const container = templateContent.querySelector(".messages");
     if (nameElement) {
-        nameElement.textContent = `${message.user.name}: `;
+        nameElement.textContent = `${currentUserName}: `;
     }
     if (messageElement) {
         messageElement.textContent = message.text;
@@ -87,12 +87,9 @@ export async function renderMessageHistory() {
         renderNextMessages();
         if (chatWindow) {
             chatWindow.scrollTop = chatWindow.scrollHeight;
-            console.log(chatWindow.scrollHeight, chatWindow.clientHeight);
             chatWindow.addEventListener("scroll", function () {
                 const scrollPosition = chatWindow.scrollTop;
-                console.log("scrollTop:", scrollPosition);
                 if (scrollPosition === 0) {
-                    console.log("Доскроллили до верхнего сообщения!");
                     renderNextMessages();
                 }
             });
@@ -103,12 +100,14 @@ export async function renderMessageHistory() {
     }
 }
 export function renderNextMessages() {
-    if (!chatWindow)
+    if (!chatWindow) {
         return;
+    }
     const nextMessages = allMessages.slice(loadedCount, loadedCount + loadSize);
-    nextMessages.forEach(msg => createMessage(msg, true));
+    nextMessages.forEach((msg) => createMessage(msg, true));
     loadedCount += loadSize;
     if (loadedCount >= allMessages.length) {
+        alert("Все сообщения загружены");
         console.log("Все сообщения загружены");
     }
 }

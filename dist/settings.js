@@ -1,11 +1,12 @@
-import { settings } from "./api.js";
-import { applyNewUserName } from "./api.js";
+import { settings, applyNewUserName } from "./api.js";
 export const settingsButton = document.querySelector("#settingsButton");
 const closeButton = document.querySelector("#closeSettingsBtn");
 const applyNewUserNameBtn = document.querySelector("#applyNewUserNameBtn");
-export let currentUserName = "";
+export let currentUserName = localStorage.getItem("currentName");
 export function setCurrentUserName(name) {
+    localStorage.removeItem("currentName");
     currentUserName = name;
+    localStorage.setItem("currentName", name);
 }
 if (applyNewUserNameBtn) {
     applyNewUserNameBtn.addEventListener("click", applyNewUserName);
