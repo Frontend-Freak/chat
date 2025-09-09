@@ -1,9 +1,11 @@
 import { sendMessage } from "./sendMessage.js";
 import { formMessage, inputMessage, defaultInput, renderMessageHistory, createMessage } from "./UI.js";
-import { settingsButton, openSettings, setCurrentUserName, currentUserName  } from "./settings.js";
+import { settingsButton, openSettings, setCurrentUserName, currentUserName, themeSelectBtn, applyNewTheme, getThemeFroLS  } from "./settings.js";
 import { authorizationWindow, getCodeBtn } from "./authorization.js";
 import { confirmCodeBtn, saveCodeToCookie } from "./confirmation.js";
 import { getCodeFetch, getDataUser, getNameUser } from "./api.js";
+
+getThemeFroLS()
 
 const exitBtn: HTMLElement | null = document.querySelector("#exitButton");
 if(currentUserName){
@@ -11,7 +13,7 @@ if(currentUserName){
 }
 
 getDataUser();
-getNameUser()
+getNameUser();
 
 export const socket = new WebSocket(`wss://edu.strada.one/websockets?${localStorage.getItem("code")}`);
 
@@ -55,6 +57,10 @@ if (exitBtn) {
 			authorizationWindow.classList.add("active");
 		}
 	});
+}
+
+if (themeSelectBtn) {
+	themeSelectBtn.addEventListener("click", applyNewTheme);
 }
 
 renderMessageHistory();

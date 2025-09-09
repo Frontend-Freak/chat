@@ -31,7 +31,7 @@ export function createMessage(message: OpponentMessage, isHistory: boolean = fal
 	const timeElement = templateContent.querySelector("#timeMassage");
 	const container = templateContent.querySelector(".messages");
 	if (nameElement) {
-		nameElement.textContent = `${currentUserName}: `;
+		nameElement.textContent = `${message.user.name}: `;
 	}
 	if (messageElement) {
 		messageElement.textContent = message.text;

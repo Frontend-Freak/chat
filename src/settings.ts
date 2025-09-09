@@ -5,6 +5,8 @@ const closeButton: HTMLElement | null = document.querySelector("#closeSettingsBt
 const applyNewUserNameBtn: HTMLElement | null = document.querySelector("#applyNewUserNameBtn");
 
 export let currentUserName: string | null = localStorage.getItem("currentName");
+const themeSelect: HTMLSelectElement | null = document.querySelector("#theme");
+export const themeSelectBtn: HTMLElement | null = document.querySelector("#applyNewTheme");
 
 export function setCurrentUserName(name: string) {
 	localStorage.removeItem("currentName");
@@ -25,6 +27,22 @@ export function openSettings() {
 export function closeSettings() {
 	if (settings) {
 		settings.classList.remove("active");
+	}
+}
+
+export function applyNewTheme() {
+	if (themeSelect) {
+		const selectedTheme = themeSelect.value;
+		console.log(selectedTheme);
+		document.documentElement.setAttribute("data-theme", selectedTheme);
+		localStorage.setItem('theme', selectedTheme)
+	}
+}
+
+export function getThemeFroLS() {
+	const themeFromLS: string | null = localStorage.getItem("theme");
+	if(themeFromLS){
+		document.documentElement.setAttribute("data-theme", themeFromLS);
 	}
 }
 

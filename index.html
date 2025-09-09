@@ -10,9 +10,7 @@
 	<body>
 		<div class="window__app">
 			<div class="top__buttons">
-				<button class="settings-btn btn" id="settingsButton">
-					Настройки
-				</button>
+				<button class="settings-btn btn" id="settingsButton">Настройки</button>
 				<button class="exit-btn btn" id="exitButton">Выйти</button>
 			</div>
 			<div class="window__chat" id="chatWindow">
@@ -27,19 +25,8 @@
 				</template>
 			</div>
 			<form class="form__massage" id="formMassage">
-				<input
-					class="input__massage"
-					id="inputMassage"
-					type="text"
-					placeholder="Введите сообщение..."
-				/>
-				<button
-					class="send-btn btn"
-					id="sendMassageButton"
-					type="submit"
-				>
-					->
-				</button>
+				<input class="input__massage" id="inputMassage" type="text" placeholder="Введите сообщение..." />
+				<button class="send-btn btn" id="sendMassageButton" type="submit">-></button>
 			</form>
 
 			<div class="authorization" id="authorization">
@@ -75,6 +62,17 @@
 					<div class="settings__input-name">
 						<input type="text" id="inputNewUserName" />
 						<button class="apply btn" id="applyNewUserNameBtn">-></button>
+					</div>
+					<div class="change__theme">
+						<label for="new__theme" id="newTheme">Тема:</label>
+						<div class="settings__input-name">
+							<select id="theme" name="theme">
+								<option value="light">⚪ Светлая</option>
+								<option value="dark">⚫ Темный</option>
+								<option value="pink">🟣 Розовый</option>
+							</select>
+							<button class="apply btn" id="applyNewTheme">-></button>
+						</div>
 					</div>
 				</div>
 			</div>

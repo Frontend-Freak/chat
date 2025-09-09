@@ -19,7 +19,7 @@ export function createMessage(message, isHistory = false) {
     const timeElement = templateContent.querySelector("#timeMassage");
     const container = templateContent.querySelector(".messages");
     if (nameElement) {
-        nameElement.textContent = `${currentUserName}: `;
+        nameElement.textContent = `${message.user.name}: `;
     }
     if (messageElement) {
         messageElement.textContent = message.text;

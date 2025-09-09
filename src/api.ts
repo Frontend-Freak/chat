@@ -85,6 +85,7 @@ export async function applyNewUserName() {
 	}
 }
 
+
 export async function getDataUser() {
 	const token: string | null = localStorage.getItem("code");
 	try {

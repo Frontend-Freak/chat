@@ -1,21 +1,71 @@
+:root[data-theme="light"] {
+	--color: black;
+	--bg: #ffffff;
+	--bg-2: #f3f4f6;
+	--bg-3: #e5e7eb;
+	--text: #111111;
+	--border: #d1d5db;
+	--input-bg: #f9fafb;
+	--bg-my-message: #e5e7eb;
+	--bg-opponent-message: #f3f4f6;
+	--hover: #d1d5db;
+	--focus: #3b82f6;
+	--time: #6b7280;
+}
+
+:root[data-theme="dark"] {
+	--color: white;
+	--bg: #18181b;
+	--bg-2: #27272a;
+	--bg-3: #3f3f46;
+	--text: #e4e4e7;
+	--border: #52525b;
+	--input-bg: #27272a;
+	--bg-my-message: #3f3f46;
+	--bg-opponent-message: #27272a;
+	--hover: #52525b;
+	--focus: #6366f1;
+	--time: #a1a1aa;
+}
+
+:root[data-theme="pink"] {
+	--color: black;
+	--bg: #fff0f6;
+	--bg-2: #f472b6;
+	--bg-3: #3e2d36;
+	--text: #111;
+	--border: #f9a8d4;
+	--input-bg: #ffe4f0;
+	--bg-my-message: #f9a8d4;
+	--bg-opponent-message: #fbcfe8;
+	--hover: #ec4899;
+	--focus: #f472b6;
+	--time: #be185d;
+}
+
 body {
 	height: 1vh;
 	height: 100%;
 	overflow: hidden;
-	background: #2b3c5d;
 	display: flex;
+	background: var(--bg);
+	color: var(--text);
 }
 
 .btn {
-	background-color: white;
+	background-color: var(--bg-2);
 	border-radius: 10px;
-	border: 0.5px solid black;
+	border: 1px solid var(--border);
 	padding: 6px 8px;
 	transition: 0.3s all;
 }
 
+#applyNewTheme {
+	padding: 6px 8px;
+}
+
 .btn:hover {
-	background: #cccbcb;
+	background: var(--hover);
 }
 
 .window__app {
@@ -24,7 +74,8 @@ body {
 	width: 370px;
 	height: 593px;
 	margin: 10vh auto;
-	background: white;
+	border: 1px solid var(--border);
+	background: var(--bg);
 }
 
 .top__buttons {
@@ -39,14 +90,14 @@ body {
 	width: 335px;
 	height: 477px;
 	margin: 8px auto;
-	border: 1px solid black;
+	border: 1px solid var(--border);
 	padding: 8px;
 	display: flex;
 	justify-content: flex-end;
 	flex-direction: column-reverse;
 	gap: 8px;
 	overflow-y: auto;
-
+	background: var(--bg);
 }
 
 .form__massage {
@@ -58,11 +109,16 @@ body {
 
 .input__massage {
 	border-radius: 10px;
-	border: 1px solid black;
+	border: 1px solid var(--border);
+	background: var(--bg);
 	max-height: 32px;
 	max-width: 100%;
 	padding: 6px;
 	flex: 1;
+}
+
+.input__massage:focus {
+	border-color: var(--focus);
 }
 
 .input__massage::placeholder {
@@ -80,15 +136,15 @@ body {
 
 .my__messages {
 	align-self: flex-end;
-	background-color: #f6f6f6;
+	background-color: var(--bg-my-message);
 	text-align: right;
 	border-radius: 10px 10px 0 10px;
-	border: 0.5px solid rgb(147, 147, 147);
+	border: 0.5px solid var(--border);
 }
 
 .opponent__messages {
 	align-self: flex-start;
-	background-color: #e5e5e5;
+	background-color: var(--bg-opponent-message);
 	text-align: left;
 	border-radius: 10px 10px 10px 0;
 }
@@ -128,7 +184,7 @@ body {
 
 .time__massage {
 	font-size: 12px;
-	color: #3636369f;
+	color: var(--time);
 }
 
 .delivered {
@@ -137,7 +193,7 @@ body {
 
 .authorization,
 .confirmation,
-.settings{
+.settings {
 	position: absolute;
 	top: -83px;
 	left: 0px;
@@ -146,7 +202,7 @@ body {
 	width: 370px;
 	height: 593px;
 	margin: 10vh auto;
-	background-color: #535353;
+	background: var(--bg-3);
 	visibility: hidden;
 }
 
@@ -154,13 +210,13 @@ body {
 .confirmation__window,
 .settings__window {
 	position: relative;
-	background-color: white;
+	background: var(--bg);
 	width: 223px;
 	height: 319px;
 	border-radius: 10px;
 	margin: 30% auto;
 	padding: 21px 14px;
-	color: #000000;
+	color: var(--color);
 	animation: fadeIn 0.3s ease;
 }
 
@@ -169,13 +225,13 @@ body {
 	right: 15px;
 	top: 15px;
 	font-size: 22px;
-	color: #000000;
+	color: var(--color);
 	cursor: pointer;
 	transition: color 0.2s ease;
 }
 
 .close-btn:hover {
-	color: #5e5e5e;
+	color: var(--hover);
 }
 
 .authorization__window-title,
@@ -189,36 +245,35 @@ body {
 
 .authorization__window label,
 .confirmation__window label,
-.settings__window label{
+.settings__window label {
 	display: block;
 	margin-top: 70px;
 	font-size: 14px;
 	margin-bottom: 3px;
-	color: #000000;
+	color: var(--color);
 }
 
 .authorization__window input[type="email"],
 .confirmation__window input[type="text"],
-.settings__window input[type="text"]{
-	width: 88%;
-	padding: 10px 12px;
+.settings__window input[type="text"] {
+	padding: 8px 10px;
 	border-radius: 10px;
-	border: 0.5px solid #787878;
-	background: #ffffff;
-	color: #000000;
+	border: 1px solid var(--border);
+	background: var(--bg);
+	color: var(--color);
 	outline: none;
 	font-size: 14px;
 	transition: border 0.2s ease;
 }
 
-.settings__window input[type="text"]{
+.settings__window input[type="text"] {
 	width: 71%;
 }
 
 .authorization__window input[type="email"]:focus,
 .confirmation__window input[type="text"]:focus,
 .settings__window input[type="text"]:focus {
-	border-color: #000000;
+	border-color: var(--focus);
 }
 
 .btn-group {
@@ -228,20 +283,35 @@ body {
 }
 
 .get__code,
-.enter__code{
+.enter__code {
 	padding: 7px;
 	font-size: 15px;
 	font-weight: 400;
 }
 
-.active{
+.active {
 	visibility: visible;
 }
 
 .confirmation__input,
-.settings__input-name{
+.settings__input-name {
 	display: flex;
 	gap: 7px;
+}
+
+.settings__window label,
+#newTheme {
+	margin-top: 20px;
+}
+
+#theme {
+	appearance: none;
+	padding: 3px 12px;
+	border-radius: 12px;
+	border: 2px solid var(--border);
+	font-size: 16px;
+	color: var(--color);
+	background-color: var(--bg);
 }
 
 @keyframes popup-appear {

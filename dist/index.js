@@ -1,9 +1,10 @@
 import { sendMessage } from "./sendMessage.js";
 import { formMessage, inputMessage, defaultInput, renderMessageHistory, createMessage } from "./UI.js";
-import { settingsButton, openSettings, setCurrentUserName, currentUserName } from "./settings.js";
+import { settingsButton, openSettings, setCurrentUserName, currentUserName, themeSelectBtn, applyNewTheme, getThemeFroLS } from "./settings.js";
 import { authorizationWindow, getCodeBtn } from "./authorization.js";
 import { confirmCodeBtn, saveCodeToCookie } from "./confirmation.js";
 import { getCodeFetch, getDataUser, getNameUser } from "./api.js";
+getThemeFroLS();
 const exitBtn = document.querySelector("#exitButton");
 if (currentUserName) {
     setCurrentUserName(currentUserName);
@@ -44,5 +45,8 @@ if (exitBtn) {
             authorizationWindow.classList.add("active");
         }
     });
+}
+if (themeSelectBtn) {
+    themeSelectBtn.addEventListener("click", applyNewTheme);
 }
 renderMessageHistory();

@@ -16,4 +16,3 @@ export async function sendMessage(event: Event) {
 	socket.send(JSON.stringify(message));
 	inputMessage.value = "";
 }
-
