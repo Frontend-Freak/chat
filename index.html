@@ -11,9 +11,9 @@
 		<div class="window__app">
 			<div class="top__buttons">
 				<button class="settings-btn btn" id="settingsButton">Настройки</button>
-				<button class="exit-btn btn" id="exitButton">Выйти</button>
 			</div>
 			<div class="window__chat" id="chatWindow">
+				
 				<template id="messageTemplate">
 					<div class="messages my__messages" id="messages">
 						<div class="massage__main">
@@ -23,6 +23,9 @@
 						<span class="time__massage" id="timeMassage"></span>
 					</div>
 				</template>
+				<div id="buttonScrollBox" class="popUpButton">
+					<button  class="buttonStyle buttonScroll"></button>
+				</div>
 			</div>
 			<form class="form__massage" id="formMassage">
 				<input class="input__massage" id="inputMassage" type="text" placeholder="Введите сообщение..." />
@@ -55,10 +58,10 @@
 			</div>
 
 			<div class="settings" id="settings">
-				<div class="settings__window">
+				<div class="settings__window" id="settingsWindow">
 					<span class="close-btn" id="closeSettingsBtn">&times;</span>
 					<h2 class="settings__window-title">Настройки</h2>
-					<label for="newUserName">Имя в чате:</label>
+					<label for="newUserName">Имя:</label>
 					<div class="settings__input-name">
 						<input type="text" id="inputNewUserName" />
 						<button class="apply btn" id="applyNewUserNameBtn">-></button>
@@ -74,6 +77,7 @@
 							<button class="apply btn" id="applyNewTheme">-></button>
 						</div>
 					</div>
+					<button class="exit-btn btn" id="exitButton">Выйти из аккаунта</button>
 				</div>
 			</div>
 		</div>

@@ -85,7 +85,6 @@ export async function applyNewUserName() {
 	}
 }
 
-
 export async function getDataUser() {
 	const token: string | null = localStorage.getItem("code");
 	try {
@@ -118,7 +117,6 @@ export async function getDataUser() {
 	}
 }
 
-
 export async function getNameUser() {
 	const token: string | null = localStorage.getItem("code");
 	try {
@@ -136,7 +134,7 @@ export async function getNameUser() {
 		});
 		if (!response.ok) {
 			console.log("Ошибка получения имени, повторите попытку");
-			return 
+			return;
 		}
 		const result = await response.json();
 		localStorage.setItem("currentName", result.name);

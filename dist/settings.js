@@ -28,7 +28,7 @@ export function applyNewTheme() {
         const selectedTheme = themeSelect.value;
         console.log(selectedTheme);
         document.documentElement.setAttribute("data-theme", selectedTheme);
-        localStorage.setItem('theme', selectedTheme);
+        localStorage.setItem("theme", selectedTheme);
     }
 }
 export function getThemeFroLS() {

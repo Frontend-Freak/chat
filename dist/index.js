@@ -1,5 +1,5 @@
 import { sendMessage } from "./sendMessage.js";
-import { formMessage, inputMessage, defaultInput, renderMessageHistory, createMessage } from "./UI.js";
+import { formMessage, inputMessage, defaultInput, renderMessageHistory, createMessage, chatWindow } from "./UI.js";
 import { settingsButton, openSettings, setCurrentUserName, currentUserName, themeSelectBtn, applyNewTheme, getThemeFroLS } from "./settings.js";
 import { authorizationWindow, getCodeBtn } from "./authorization.js";
 import { confirmCodeBtn, saveCodeToCookie } from "./confirmation.js";
@@ -17,6 +17,7 @@ socket.onopen = () => {
 };
 socket.addEventListener("message", async (event) => {
     const message = JSON.parse(event.data);
+    newMessagesCounter += 1;
     createMessage(message);
 });
 if (formMessage) {
@@ -48,5 +49,44 @@ if (exitBtn) {
 }
 if (themeSelectBtn) {
     themeSelectBtn.addEventListener("click", applyNewTheme);
+}
+export let newMessagesCounter = 0;
+const buttonDown = document.querySelector("#buttonScrollBox");
+export function scrollDown(window) {
+    window.scrollTop = window.scrollHeight;
+}
+export function scrollDownClick(chatWindow) {
+    return function () {
+        if (!chatWindow) {
+            return;
+        }
+        if (chatWindow) {
+            scrollDown(chatWindow);
+            newMessagesCounter = 0;
+        }
+    };
+}
+if (buttonDown && chatWindow) {
+    chatWindow.addEventListener("scroll", () => {
+        if (chatWindow) {
+            if (!buttonDown) {
+                return;
+            }
+            if (newMessagesCounter > 0) {
+                buttonDown.textContent = `↓ ${newMessagesCounter}`;
+            }
+            else {
+                buttonDown.textContent = "↓";
+            }
+            const scrollableHeight = chatWindow.scrollHeight - chatWindow.clientHeight;
+            if (chatWindow.scrollTop < scrollableHeight - chatWindow.clientHeight) {
+                buttonDown.classList.add("visible-block");
+            }
+            else {
+                buttonDown.classList.remove("visible-block");
+            }
+        }
+    });
+    buttonDown.addEventListener("click", scrollDownClick(chatWindow));
 }
 renderMessageHistory();

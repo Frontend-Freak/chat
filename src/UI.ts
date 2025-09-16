@@ -7,7 +7,7 @@ export const chatWindow: HTMLElement | null = document.querySelector("#chatWindo
 
 getDataUser();
 
-interface OpponentMessage {
+export interface OpponentMessage {
 	updatedAt: string;
 	text: string;
 	user: {
@@ -52,12 +52,7 @@ export function createMessage(message: OpponentMessage, isHistory: boolean = fal
 		inputMessage.placeholder = "Введите сообщение...";
 		inputMessage.classList.remove("placeholder-red");
 	}
-
-	if (!isHistory) {
-		chatWindow.scrollTop = chatWindow.scrollHeight;
-	}
 }
-
 
 export function defaultInput() {
 	if (inputMessage) {
@@ -66,7 +61,6 @@ export function defaultInput() {
 		inputMessage.classList.remove("placeholder-red");
 	}
 }
-
 
 export async function renderMessageHistory() {
 	const token = localStorage.getItem("code");
@@ -116,7 +110,6 @@ export async function renderMessageHistory() {
 		console.error(error);
 	}
 }
-
 
 export function renderNextMessages() {
 	if (!chatWindow) {

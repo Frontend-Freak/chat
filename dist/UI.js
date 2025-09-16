@@ -41,9 +41,6 @@ export function createMessage(message, isHistory = false) {
         inputMessage.placeholder = "Введите сообщение...";
         inputMessage.classList.remove("placeholder-red");
     }
-    if (!isHistory) {
-        chatWindow.scrollTop = chatWindow.scrollHeight;
-    }
 }
 export function defaultInput() {
     if (inputMessage) {
